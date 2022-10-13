@@ -1,0 +1,83 @@
+
+
+
+
+<div class="container p-5 my-5 border">
+
+  <h1 class = "text-center">Loan Calculator</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+
+  <form  #loanForm = "ngForm" (ngSubmit)="calculateLoan()">
+  
+    <div class="mb-3 mt-3">
+      <label for="amount" class="form-label">Amount of Loan:</label>
+      <input type="number" #amount="ngModel" class="form-control" placeholder="Enter Amount of the Loan" name="amount" [(ngModel)]="loanModel.amount" required [class.is-invalid]="amount.invalid">
+      <small class="text-danger" [class.d-none]="amount.valid || amount.untouched">Amount is required</small>
+    </div>
+    <div class="mb-3">
+      <label for="years" class="form-label">Years of Loan:</label>
+      <input type="number" #years="ngModel" class="form-control" id="years"  name="years" placeholder="Enter Years for Loan"  [(ngModel)]="loanModel.years" required [class.is-invalid]="years.invalid">
+      <small class="text-danger" [class.d-none]="years.valid || years.untouched">Number of years is required</small>
+    </div>
+    <div class="mb-3">
+      <label for="loantypeselection" class="form-label">Select Loan Type:</label>
+      <select class="form-select"   name="loantypeselection"  [(ngModel)]="loanModel.type" required #loantypeselection = "ngModel" [class.is-invalid]="loanModel.type==-1 && loantypeselection.touched">
+      
+        <option  *ngFor="let loanType of loanTypes" [value]="loanType.value" [selected]="loanType.value === -1">{{loanType.text}}</option>
+      </select> 
+      <small class="text-danger" [class.d-none]="!(loanModel.type==-1 && loantypeselection.touched) || loantypeselection.untouched">Select valid loan type</small>
+    </div>
+    <!--  -->
+  
+    <div *ngIf="formsubmitting" class="col text-center"> <div  class="spinner-border"></div></div>
+   
+    <br/>
+    <div class="col text-center">
+    <button [disabled]="loanForm.form.invalid" type="submit" class="btn btn-primary" >Submit</button>
+   
+    <button  class="btn btn-secondary" type ="button" (click)="clearFields()" >Clear</button>
+  </div>
+  </form> 
+</div>
+</div>
+<div *ngIf="loanDetailsInfo" class="row">
+
+<div  class="col-md-4 offset-md-4">
+  <hr/>
+  <div class = "text-center">
+  <div class="card" style="width: 100%;">
+    
+    <div class="card-body">
+      <h5 class="card-title">Loan</h5>
+      <table class="table">
+          <tr>
+            <td>Total Amount</td>
+            <td>{{loanDetails.amount  | number:'1.2-3'}}</td>
+          </tr>
+          <tr>
+            <td>Payment years</td>
+            <td>{{loanDetails.paymentYears}}</td>
+          </tr>
+          <tr>
+            <td>Monthly Payment</td>
+            <td>{{loanDetails.monthlyPayment | number:'1.2-3'}}</td>
+          </tr>
+          <tr>
+            <td>Total Amount to be Paid</td>
+            <td>{{loanDetails.totalAmountToBePaid | number:'1.2-3'}}</td>
+          </tr>
+          <tr>
+            <td>Total Interest</td>
+            <td>{{loanDetails.totalInterest | number:'1.2-3'}}</td>
+          </tr>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+ 
+
+</div>
