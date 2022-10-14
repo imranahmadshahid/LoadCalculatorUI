@@ -13,8 +13,8 @@
   
     <div class="mb-3 mt-3">
       <label for="amount" class="form-label">Amount of Loan:</label>
-      <input type="number" #amount="ngModel" class="form-control" placeholder="Enter Amount of the Loan" name="amount" [(ngModel)]="loanModel.amount" required [class.is-invalid]="amount.invalid">
-      <small class="text-danger" [class.d-none]="amount.valid || amount.untouched">Amount is required</small>
+      <input type="number" pattern="^[1-9][0-9]*$" #amount="ngModel" class="form-control" placeholder="Enter Amount of the Loan" name="amount" [(ngModel)]="loanModel.amount" required [class.is-invalid]="amount.invalid">
+      <small class="text-danger" [class.d-none]="amount.valid || amount.untouched">Amount is required and must be greater than 0</small>
     </div>
     <div class="mb-3">
       <label for="years" class="form-label">Years of Loan:</label>
