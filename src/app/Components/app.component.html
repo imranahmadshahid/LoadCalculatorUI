@@ -35,7 +35,7 @@
    
     <br/>
     <div class="col text-center">
-    <button [disabled]="loanForm.form.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    <button [disabled]="loanForm.form.invalid || loanModel.type==-1" type="submit" class="btn btn-primary" >Submit</button>
    
     <button  class="btn btn-secondary" type ="button" (click)="clearFields()" >Clear</button>
   </div>
