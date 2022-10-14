@@ -24,8 +24,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.loanTypes = [];
     this.formsubmitting=true;
-    this._loadCalculator.getLoanTypes().subscribe((res) => res.forEach(lt=> this.loanTypes.push({value:lt.Key,text:lt.Value})));
-    this.formsubmitting=false;
+    this._loadCalculator.getLoanTypes().subscribe((res) => this.loadLoanTypes(res));
+    
     //this.loanTypes = [{value:-1,text:"--Select Loan Type--"},{value:1,text:"House Loan"}];
   }
 
@@ -33,14 +33,26 @@ export class AppComponent implements OnInit{
   {
  
     this.formsubmitting=true;
-    this._loadCalculator.calculatLoan(this.loanModel.amount,this.loanModel.years,this.loanModel.type).subscribe((res) => this.loanDetails = res);
-    this.formsubmitting=false;
-    this.loanDetailsInfo=true;
+    this._loadCalculator.calculatLoan(this.loanModel.amount,this.loanModel.years,this.loanModel.type).subscribe((res) => this.loadData(res));
+    
   }
 
   clearFields()
   {
     this.loanModel = new Loanform(100,5,-1);
     this.loanDetailsInfo=false;
+  }
+
+  loadLoanTypes(response:any[])
+  {
+    response.forEach(lt=> this.loanTypes.push({value:lt.Key,text:lt.Value}));
+    this.formsubmitting=false;
+  }
+
+  loadData(data:any)
+  {
+    this.loanDetails = data;
+    this.formsubmitting=false;
+    this.loanDetailsInfo=true;
   }
 }
